@@ -61,7 +61,7 @@ $request = new httpRequest;
 
 // soap example request
 
-$xmlRaw     =   '<?xml version="1.0" encoding="utf-8"?>
+$xmlRaw  =  '<?xml version="1.0" encoding="utf-8"?>
                 <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
                     <soap:Body>
                         <NumberToWords xmlns="http://www.dataaccess.com/webservicesserver/">
