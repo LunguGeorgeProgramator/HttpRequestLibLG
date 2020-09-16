@@ -7,7 +7,7 @@ $request = new httpRequest;
 // $request->requestHeaders['accept-encoding'] = 'gzip, deflate, br';
 
 
-$apiKey = 'XXXX'; /// use your apiKey and replace XXXX string
+// $apiKey = 'XXXX'; /// use your apiKey and replace XXXX string
 
 /// example of a POST api request
 
@@ -42,13 +42,23 @@ $apiKey = 'XXXX'; /// use your apiKey and replace XXXX string
 // ];
 
 // $response = $request->request(
-//     "https://api.spoonacular.com/recipes/4632/summary", 
+//     "https://api.wspoonacular.com/recipes/4632/summary", 
 //     "GET"
 // ); // GET example
 
 /// example of a simple GET request
 
-$response = $request->request("http://www.google.com");
+// $request->requestArray[CURLOPT_AUTOREFERER] = 2;
+// $request->requestArray[CURLOPT_CONNECTTIMEOUT] = 2;
+
+// // custom the error with new string text
+
+// $request->errorsArray["Connection timed out after 2000 milliseconds"] = 'Put a larget than 2 seconds CURLOPT_CONNECTTIMEOUT and CURLOPT_AUTOREFERER on curl request !!!';
+// $request->errorsArray["Operation timed out after 2000 milliseconds with 0 out of 0 bytes received"] = 'Put a larget than 2 seconds CURLOPT_CONNECTTIMEOUT and CURLOPT_AUTOREFERER on curl request !!!';
+
+// $response = $request->request("https://gmail.com/");
+
+$response = $request->request("https://google.com/");
 
 echo $response;
 

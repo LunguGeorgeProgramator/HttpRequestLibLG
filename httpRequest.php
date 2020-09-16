@@ -3,6 +3,7 @@ class httpRequest {
 
     public $errorsArray = [
         'UrlMissing' => 'Url needs to be set.',
+        "401" => "tralala"
     ];
 
     public $requestHeaders = [
@@ -10,7 +11,7 @@ class httpRequest {
         'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
         'accept-language' => '',
     ];
-    
+
     public $queriesArray = [];
 
     public $requestArray = [ 
@@ -39,11 +40,17 @@ class httpRequest {
         return $url . (!empty($queryString) ? '?' . substr($queryString, 0, -1) : "");
     }
 
-    protected function TrowCustomError($errorKey, $type = E_USER_ERROR){
+    protected function TrowCustomError($errorKey, $type = E_USER_ERROR, $e = Null){
         // E_USER_NOTICE             // Notice (default)
         // E_USER_WARNING            // Warning
         // E_USER_ERROR              // Fatal Error
-        return trigger_error($this->errorsArray[$errorKey], $type);
+        if (array_key_exists($errorKey, $this->errorsArray)) {
+            return trigger_error(sprintf("Error Message: %s", $this->errorsArray[$errorKey]), $type);
+        } else if ($e !== null) {
+            return trigger_error(sprintf('Curl failed with error #%d: %s', $e->getCode(), $e->getMessage()), $type);
+        } else {
+            return trigger_error(sprintf('Curl failed with error: %s', $errorKey), $type);
+        }
     } 
 
     function request($url, $method = 'GET', $payloadData = []){
@@ -60,9 +67,13 @@ class httpRequest {
             }
             curl_setopt_array($curl,  $this->requestArray);
             $response = curl_exec($curl);
+            $error = curl_error($curl);
+            if(!empty($error)){
+                $this->TrowCustomError($error, E_USER_ERROR);
+            }
             curl_close($curl); // Close cURL session
         } catch(Exception $e) {
-            trigger_error(sprintf('Curl failed with error #%d: %s', $e->getCode(), $e->getMessage()), E_USER_ERROR);
+            $this->TrowCustomError($e->code(), E_USER_ERROR, $e);
         } 
         return $response;
     }
