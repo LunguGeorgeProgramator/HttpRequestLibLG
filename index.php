@@ -6,7 +6,6 @@ $request = new httpRequest;
 
 // $request->requestHeaders['accept-encoding'] = 'gzip, deflate, br';
 
-
 // $apiKey = 'XXXX'; /// use your apiKey and replace XXXX string
 
 /// example of a POST api request
@@ -58,9 +57,26 @@ $request = new httpRequest;
 
 // $response = $request->request("https://gmail.com/");
 
-$response = $request->request("https://google.com/");
+// $response = $request->request("https://google.com/");
+
+// soap example request
+
+$xmlRaw     =   '<?xml version="1.0" encoding="utf-8"?>
+                <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+                    <soap:Body>
+                        <NumberToWords xmlns="http://www.dataaccess.com/webservicesserver/">
+                        <ubiNum>500</ubiNum>
+                        </NumberToWords>
+                    </soap:Body>
+                </soap:Envelope>';  
+ 
+
+$request->requestHeaders = [
+    'Content-Type: text/xml'
+];
+
+$response = $request->request("https://www.dataaccess.com/webservicesserver/NumberConversion.wso", "POST", $xmlRaw);
 
 echo $response;
 
-// var_dump( $response );
 ?>

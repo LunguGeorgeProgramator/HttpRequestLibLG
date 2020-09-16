@@ -6,7 +6,7 @@ class httpRequest {
     ];
 
     public $requestHeaders = [
-        'Connection' => 'keep-alive',
+        'Connection: keep-alive',
         'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
         'accept-language' => '',
     ];
@@ -28,7 +28,11 @@ class httpRequest {
     ];
 
     public function buildPostPayload($data){
-        return json_encode($data); // separated in case someone needs to overide the payload logic
+        if(is_array($data)){
+            return json_encode($data); // separated in case someone needs to overide the payload logic
+        } else {
+            return $data;
+        }
     }
 
     public function buildUlrQuery($url){
@@ -57,6 +61,7 @@ class httpRequest {
             $this->TrowCustomError('UrlMissing'); 
         }
         try{
+            // var_dump($this->buildUlrQuery($url), $method, $this->buildPostPayload($payloadData), $this->requestHeaders);
             $curl = curl_init($url); // Initializes a new cURL session
             curl_setopt ($curl, CURLOPT_URL, $this->buildUlrQuery($url));
             curl_setopt ($curl, CURLOPT_CUSTOMREQUEST, $method);
