@@ -2,8 +2,7 @@
 class httpRequest {
 
     public $errorsArray = [
-        'UrlMissing' => 'Url needs to be set.',
-        "401" => "tralala"
+        'UrlMissing' => 'Url needs to be set.'
     ];
 
     public $requestHeaders = [
