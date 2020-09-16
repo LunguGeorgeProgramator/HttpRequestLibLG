@@ -7,7 +7,7 @@ $request = new httpRequest;
 // $request->requestHeaders['accept-encoding'] = 'gzip, deflate, br';
 
 
-$apiKey = '724dcd02791a41529148954bca4524fb'; /// use your apiKey and replace XXXX string
+$apiKey = 'XXXX'; /// use your apiKey and replace XXXX string
 
 /// example of a POST api request
 
