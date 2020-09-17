@@ -68,14 +68,19 @@ $xmlRaw  =  '<?xml version="1.0" encoding="utf-8"?>
                         <ubiNum>500</ubiNum>
                         </NumberToWords>
                     </soap:Body>
-                </soap:Envelope>';  
- 
+                </soap:Envelope>';
 
 $request->requestHeaders = [
     'Content-Type: text/xml'
 ];
 
-$response = $request->request("https://www.dataaccess.com/webservicesserver/NumberConversion.wso", "POST", $xmlRaw);
+$response = $request->request(
+    "https://www.dataaccess.com/webservicesserver/NumberConversion.wso", 
+    "POST", 
+    $xmlRaw
+);
+
+// var_dump($request->details, $request->details['http_code']);
 
 echo $response;
 

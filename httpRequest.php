@@ -1,6 +1,8 @@
 <?php
 class httpRequest {
 
+    public $details = Null;
+
     public $errorsArray = [
         'UrlMissing' => 'Url needs to be set.'
     ];
@@ -75,10 +77,11 @@ class httpRequest {
             if(!empty($error)){
                 $this->TrowCustomError($error, E_USER_ERROR);
             }
+            $this->details = curl_getinfo($curl);
             curl_close($curl); // Close cURL session
         } catch(Exception $e) {
             $this->TrowCustomError($e->code(), E_USER_ERROR, $e);
-        } 
+        }
         return $response;
     }
 
